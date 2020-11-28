@@ -24,8 +24,8 @@ let options = [
   {
     label: "Zapatos",
     options: [
-      { value: "Nike", label: "Nike", group: "Mixer" },
-      { value: "Adidas", label: "Adidas", group: "Mixer" },
+      { value: "Nike", label: "Nike", group: "Zapatos" },
+      { value: "Adidas", label: "Adidas", group: "Zapatos" },
     ],
   },
 ];
