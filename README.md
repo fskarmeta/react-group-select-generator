@@ -36,13 +36,13 @@ ingresar el token utilizando Bearer. También permite modificar el título y col
 
 ## English
 
-## Component to generate an object for the react-select optgruop
+## Component to generate an object for the react-select optgroup
 
-### You can add categories and items, as well as delete them.
+### You can add categories and items as well as delete them.
 
 For now the code commentaries are in spanish because the component will bee used in a hispanic project, but once the project is ready I will comment the
-code in english also.
+code in english.
 
-In this link you can play around with the component, once you create categories and insert item the only way to see what you have done
+In this link you can play around with the component, once you create categories and insert items the only way to see what you have done
 is looking at the "Borrar Item" (delete item) select group.
 https://fskarmeta-create-group-select-react-component.netlify.app/
