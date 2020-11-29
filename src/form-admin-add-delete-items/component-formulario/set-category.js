@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export const SetCategory = ({ addCategory }) => {
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState({});
 
   //atrapamos la cateogría que inserto el usuario y le iniciamos un array vació con el key "options"
   function categorySetter(e) {

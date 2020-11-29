@@ -1,14 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { SetCategory } from "./component-formulario/set-category";
 import { SetItem } from "./component-formulario/set-item";
 import { DeleteCategory } from "./component-formulario/delete-category";
 import { DeleteItem } from "./component-formulario/delete-item.js";
 import { CategoryTitle } from "./component-formulario/titulo-requisito";
-export const Formulario = ({ titulo, colorDeFondo }) => {
+import { SafeButton } from "./component-formulario/safe-button";
+export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
   /* Este objecto representa el array con todas las categorías e items que puede seleccionar el DJ para agregar items a su lista. 
     Por lo que es un select con opciones dentro de cada cateogria. */
 
   const [object, setObject] = useState([]);
+
+  // recibir array desde el back
+
+  const getObject = useRef(() => {});
+
+  const onlyCategories = [];
+
+  // Creamos un array solo con las categorías en el formato requerido para usar react-select, estas la pasaremos al componente que
+  // requiera hacer el display
+  useEffect(() => {
+    for (let element of object) {
+      let newObj = { value: element.label, label: element.label };
+      if (!onlyCategories.some((el) => el.value === newObj.value)) {
+        onlyCategories.push(newObj);
+      }
+    }
+  });
+
+  // fetch de los objetos
+  useEffect(() => {
+    getObject.current();
+  }, []);
+
+  getObject.current = () => {
+    fetch(`${fetchURL}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setObject(data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  // actualizar array en el back
+
+  const updateObject = () => {
+    fetch(`${fetchURL}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(object),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
 
   // Funcion que pasa al componente Set-Category y devuelve un objecto {label: NOMBRE_CATEGORIA options: [ARRAY VACIO]}
   // Hago copia del objecto original en el State
@@ -100,9 +160,16 @@ export const Formulario = ({ titulo, colorDeFondo }) => {
     <div className="pb-2" style={{ backgroundColor: colorDeFondo }}>
       <CategoryTitle titulo={titulo} />
       <SetCategory addCategory={addCategory} />
-      <SetItem object={object} getItemWithCategory={getItemWithCategory} />
-      <DeleteCategory object={object} getCategory={getCategory} />
+      <SetItem
+        onlyCategories={onlyCategories}
+        getItemWithCategory={getItemWithCategory}
+      />
+      <DeleteCategory
+        onlyCategories={onlyCategories}
+        getCategory={getCategory}
+      />
       <DeleteItem object={object} getAndDeleteItem={getAndDeleteItem} />
+      <SafeButton updateObject={updateObject} />
     </div>
   );
 };

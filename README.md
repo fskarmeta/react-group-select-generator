@@ -31,4 +31,5 @@ let options = [
 ];
 ```
 
-Falta agregar el botón para guardar los cambios en el back y los state para pasar el objeto guardado desde el back a cada formulario
+Se le agregó en el componente principal las tres variables para ingresar los link para GET y PUT de los objetos desde el back, como también
+ingresar el token utilizando Bearer. También permite modificar el título y color de fondo de manera simple a cada subcomponente.

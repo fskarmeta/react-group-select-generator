@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 
 //pasamos el objeto original completo y la funcion para devolver el item con su categoria
-export const SetItem = ({ object, getItemWithCategory }) => {
+export const SetItem = ({ getItemWithCategory, onlyCategories }) => {
   // Item actual que esta ingresando el Usuario
   const [item, setItem] = useState("");
   // Categoria que esta eligiendo el Usuario
-  const [category, onChange] = useState("");
+  const [category, onChange] = useState({});
 
   //almacenamos todas las categorías existentes del objecto original acá
-  const options = [];
-
-  // cada re render llamamos en el formato pedido por react-select las categorías { value: nombre_categoria, label:  nombre_categoria }
-  // y las pusheamos al array de opciones
-  useEffect(() => {
-    for (let element of object) {
-      let newObj = { value: element.label, label: element.label };
-      if (!options.some((el) => el.value === newObj.value)) {
-        options.push(newObj);
-      }
-    }
-  });
+  const options = onlyCategories;
 
   //atrapamos el string con el item ingresado por usuario
   function itemSetter(e) {

@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 
-export const DeleteCategory = ({ object, getCategory }) => {
-  const [category, onChange] = useState("");
+export const DeleteCategory = ({ onlyCategories, getCategory }) => {
+  const [category, onChange] = useState({});
 
   //almacenamos todas las categorías existentes del objecto original acá
-  const options = [];
-
-  // cada re render llamamos en el formato pedido por react-select las categorías { value: nombre_categoria, label:  nombre_categoria }
-  // y las pusheamos al array de opciones
-  useEffect(() => {
-    for (let element of object) {
-      let newObj = { value: element.label, label: element.label };
-      if (!options.some((el) => el.value === newObj.value)) {
-        options.push(newObj);
-      }
-    }
-  });
+  const options = onlyCategories;
 
   //click al boton le mandamos la información con la categoría como string al padre
   function infoToParent() {

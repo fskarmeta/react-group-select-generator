@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 
 export const DeleteItem = ({ object, getAndDeleteItem }) => {
-  const [item, onChange] = useState("");
+  const [item, onChange] = useState({});
 
   const options = object;
   //   click al boton le mandamos la información con la categoría como string al padre
