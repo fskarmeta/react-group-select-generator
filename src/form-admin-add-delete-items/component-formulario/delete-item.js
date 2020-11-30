@@ -6,6 +6,8 @@ export const DeleteItem = ({ object, getAndDeleteItem }) => {
 
   const options = object;
   //   click al boton le mandamos la información con la categoría como string al padre
+  // group = cateogría
+  // value = item
   function infoToParent() {
     getAndDeleteItem(item.group, item.value);
   }

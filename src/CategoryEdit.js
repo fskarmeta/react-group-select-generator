@@ -8,6 +8,31 @@ const fetchEscenario = "http://localhost:5000/objetoglobal/escenario/admin";
 const fetchFoodAndDrinks =
   "http://localhost:5000/objetoglobal/foodanddrinks/admin";
 
+const test = [
+  {
+    label: "Controladores",
+    options: [
+      {
+        value: "Ableton Push 3",
+        label: "Ableton Push 3",
+        group: "Controladores",
+      },
+      {
+        value: "Akai AMX - Mixing Surface",
+        label: "Akai AMX - Mixing Surface",
+        group: "Controladores",
+      },
+    ],
+  },
+  {
+    label: "Mixer",
+    options: [
+      { value: "10 entradas", label: "10 entradas", group: "Mixer" },
+      { value: "8 entradas", label: "8 entradas", group: "Mixer" },
+    ],
+  },
+];
+
 function CategoryEditForm() {
   return (
     <div className="container-fluid">
@@ -19,6 +44,7 @@ function CategoryEditForm() {
               colorDeFondo={"rgba(224,224,224,0.2)"}
               fetchURL={fetchEquipos}
               token={token}
+              test={test}
             />
           </div>
           <div className="col-md-4">

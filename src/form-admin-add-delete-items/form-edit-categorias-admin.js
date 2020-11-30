@@ -54,7 +54,7 @@ export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
       });
   };
 
-  // actualizar array en el back
+  // fetch actualizar array en el back
 
   const updateObject = () => {
     fetch(`${fetchURL}`, {
@@ -72,17 +72,16 @@ export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
 
   // Funcion que pasa al componente Set-Category y devuelve un objecto {label: NOMBRE_CATEGORIA options: [ARRAY VACIO]}
   // Hago copia del objecto original en el State
-  //De darse que la persona ingreso dos veces la misma categoria, busca y elimina la ya existente
+  //Chequea que la categoría no esté ya agregada, de ser así, retorna null
   //Agrega Objecto al array de Objetos (recordar que el array "options" ya viene inicializado pero vacío) y remplaza al array original
   function addCategory(obj) {
     let objectCopy = [...object];
-    for (let i in objectCopy) {
-      if (objectCopy[i].label === obj.label) {
-        objectCopy.splice(i, 1);
-      }
+    if (onlyCategories.some((e) => e.label === obj.label)) {
+      return null;
+    } else {
+      objectCopy.push(obj);
+      setObject(objectCopy);
     }
-    objectCopy.push(obj);
-    setObject(objectCopy);
   }
 
   // Función para atrapar un item inidividual que se agrega al objeto, debe venir con la cateogría para saber donde meterlo.

@@ -15,7 +15,7 @@ export const DeleteCategory = ({ onlyCategories, getCategory }) => {
   return (
     <div className="form-group">
       <p className="font-weight-bold">Borrar Elementos</p>
-      <label htmlFor="categorias">Borrar Categoria</label>
+      <label htmlFor="categorias">Borrar Categoria Completa</label>
       <div>
         <div>
           <Select options={options} onChange={onChange} />
