@@ -9,7 +9,9 @@ import "bootstrap";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CategoryEditForm />
+    <div className="container-fluid">
+      <CategoryEditForm />
+    </div>
   </React.StrictMode>,
   document.getElementById("root")
 );

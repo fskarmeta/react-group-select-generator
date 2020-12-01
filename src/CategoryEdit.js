@@ -9,17 +9,19 @@ import { objetosGlobales } from "./testitem";
 function CategoryEditForm() {
   const [global, setGlobal] = useState(objetosGlobales);
 
-  function updateGlobalState(attr, obj) {
-    let globalCopy = { ...global };
-    globalCopy[attr] = obj;
-    //aqui realmente deberíamos mandar la actualización del fetch (here comes the PUT)
-    setGlobal(globalCopy);
-  }
-
   // fetch de los objetos
   // useEffect(() => {
   //   getObject.current();
   // }, []);
+
+  // actualizando el state con lo cambios y PUT fetch
+  function updateGlobalState(attr, obj) {
+    let globalCopy = { ...global };
+    globalCopy[attr] = obj;
+    setGlobal(globalCopy);
+    //mandar la actualización del fetch (here comes the PUT)
+    //updateObject(globalCopy)
+  }
 
   // const getObject = useRef(() => {});
 
@@ -46,14 +48,14 @@ function CategoryEditForm() {
 
   // fetch actualizar array en el back
 
-  // const updateObject = () => {
+  // const updateObject = (obj) => {
   //   fetch(`${fetchURL}`, {
   //     method: "PUT",
   //     headers: {
   //       "Content-Type": "application/json",
   //       Authorization: `Bearer ${token}`,
   //     },
-  //     body: JSON.stringify(global),
+  //     body: JSON.stringify(obj),
   //   })
   //     .then((response) => response.json())
   //     .then((data) => console.log(data))
@@ -61,36 +63,32 @@ function CategoryEditForm() {
   // };
 
   return (
-    <div className="container-fluid">
-      <div className="col-md-12">
-        <div className="row">
-          <div className="col-md-4">
-            <EditCategories
-              titulo={"Equipos"}
-              colorDeFondo={"rgba(224,224,224,0.2)"}
-              global={global.equipos}
-              updateGlobalState={updateGlobalState}
-              objectAttr={"equipos"}
-            />
-          </div>
-          <div className="col-md-4">
-            <EditCategories
-              titulo={"Escenario"}
-              colorDeFondo={"rgba(224,224,224,0.2)"}
-              global={global.escenario}
-              updateGlobalState={updateGlobalState}
-              objectAttr="escenario"
-            />
-          </div>
-          <div className="col-md-4">
-            <EditCategories
-              titulo={"Food & Drinks"}
-              colorDeFondo={"rgba(224,224,224,0.2)"}
-              global={global.foodanddrinks}
-              objectAttr={"foodanddrinks"}
-            />
-          </div>
-        </div>
+    <div className="row">
+      <div className="col-md-4">
+        <EditCategories
+          titulo={"Equipos"}
+          colorDeFondo={"rgba(224,224,224,0.2)"}
+          global={global.equipos}
+          updateGlobalState={updateGlobalState}
+          objectAttr={"equipos"}
+        />
+      </div>
+      <div className="col-md-4">
+        <EditCategories
+          titulo={"Escenario"}
+          colorDeFondo={"rgba(224,224,224,0.2)"}
+          global={global.escenario}
+          updateGlobalState={updateGlobalState}
+          objectAttr="escenario"
+        />
+      </div>
+      <div className="col-md-4">
+        <EditCategories
+          titulo={"Food & Drinks"}
+          colorDeFondo={"rgba(224,224,224,0.2)"}
+          global={global.foodanddrinks}
+          objectAttr={"foodanddrinks"}
+        />
       </div>
     </div>
   );
