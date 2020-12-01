@@ -20,6 +20,7 @@ export const SetItem = ({ getItemWithCategory, onlyCategories }) => {
   function infoToParent() {
     let data = { category: category.label, item: item };
     getItemWithCategory(data);
+    setItem("");
   }
 
   return (
@@ -41,6 +42,7 @@ export const SetItem = ({ getItemWithCategory, onlyCategories }) => {
           name="seleccionar-item"
           aria-describedby="helpId"
           placeholder=""
+          value={item}
           onChange={(e) => itemSetter(e)}
         />
       </div>

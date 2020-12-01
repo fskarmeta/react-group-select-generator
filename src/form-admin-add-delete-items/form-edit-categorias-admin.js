@@ -5,15 +5,20 @@ import { DeleteCategory } from "./component-formulario/delete-category";
 import { DeleteItem } from "./component-formulario/delete-item.js";
 import { CategoryTitle } from "./component-formulario/titulo-requisito";
 import { SafeButton } from "./component-formulario/safe-button";
-export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
+
+export const EditCategories = ({
+  titulo,
+  colorDeFondo,
+  global,
+  updateGlobalState,
+  objectAttr,
+}) => {
   /* Este objecto representa el array con todas las categorías e items que puede seleccionar el DJ para agregar items a su lista. 
     Por lo que es un select con opciones dentro de cada cateogria. */
 
-  const [object, setObject] = useState([]);
+  const [object, setObject] = useState(global);
 
   // recibir array desde el back
-
-  const getObject = useRef(() => {});
 
   const onlyCategories = [];
 
@@ -28,47 +33,10 @@ export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
     }
   });
 
-  // fetch de los objetos
-  useEffect(() => {
-    getObject.current();
-  }, []);
-
-  getObject.current = () => {
-    fetch(`${fetchURL}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setObject(data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
-
-  // fetch actualizar array en el back
-
-  const updateObject = () => {
-    fetch(`${fetchURL}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(object),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-  };
+  function liftObjectForUpdate() {
+    let objCopy = [...object];
+    updateGlobalState(objectAttr, objCopy);
+  }
 
   // Funcion que pasa al componente Set-Category y devuelve un objecto {label: NOMBRE_CATEGORIA options: [ARRAY VACIO]}
   // Hago copia del objecto original en el State
@@ -76,12 +44,8 @@ export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
   //Agrega Objecto al array de Objetos (recordar que el array "options" ya viene inicializado pero vacío) y remplaza al array original
   function addCategory(obj) {
     let objectCopy = [...object];
-    if (onlyCategories.some((e) => e.label === obj.label)) {
-      return null;
-    } else {
-      objectCopy.push(obj);
-      setObject(objectCopy);
-    }
+    objectCopy.push(obj);
+    setObject(objectCopy);
   }
 
   // Función para atrapar un item inidividual que se agrega al objeto, debe venir con la cateogría para saber donde meterlo.
@@ -158,7 +122,7 @@ export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
   return (
     <div className="pb-2" style={{ backgroundColor: colorDeFondo }}>
       <CategoryTitle titulo={titulo} />
-      <SetCategory addCategory={addCategory} />
+      <SetCategory addCategory={addCategory} onlyCategories={onlyCategories} />
       <SetItem
         onlyCategories={onlyCategories}
         getItemWithCategory={getItemWithCategory}
@@ -168,7 +132,7 @@ export const EditCategories = ({ titulo, colorDeFondo, fetchURL, token }) => {
         getCategory={getCategory}
       />
       <DeleteItem object={object} getAndDeleteItem={getAndDeleteItem} />
-      <SafeButton updateObject={updateObject} />
+      <SafeButton liftObjectForUpdate={liftObjectForUpdate} />
     </div>
   );
 };

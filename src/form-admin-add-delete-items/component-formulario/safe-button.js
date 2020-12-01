@@ -1,10 +1,10 @@
-export const SafeButton = ({ updateObject }) => {
+export const SafeButton = ({ liftObjectForUpdate }) => {
   return (
     <div className="d-flex justify-content-center">
       <span
         className="btn btn-success text-center"
         role="button"
-        onClick={updateObject}
+        onClick={liftObjectForUpdate}
       >
         Guardar Cambios
       </span>
