@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { EditCategories } from "./form-admin-add-delete-items/form-edit-categorias-admin";
 import { objetosGlobales } from "./testitem";
 
-const token = "";
-const fetchURL = "";
+//recordar agregar el useRed arriba
+// const token = "";
+// const fetchURL = "";
 
 function CategoryEditForm() {
   const [global, setGlobal] = useState(objetosGlobales);
@@ -20,44 +21,44 @@ function CategoryEditForm() {
   //   getObject.current();
   // }, []);
 
-  const getObject = useRef(() => {});
+  // const getObject = useRef(() => {});
 
-  getObject.current = () => {
-    fetch(`${fetchURL}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        // console.log(response);
-        return response.json();
-      })
-      .then((data) => {
-        // console.log(data);
-        setGlobal(data);
-      })
-      .catch((error) => {
-        // console.log(error.message);
-      });
-  };
+  // getObject.current = () => {
+  //   fetch(`${fetchURL}`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       // console.log(response);
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       // console.log(data);
+  //       setGlobal(data);
+  //     })
+  //     .catch((error) => {
+  //       // console.log(error.message);
+  //     });
+  // };
 
   // fetch actualizar array en el back
 
-  const updateObject = () => {
-    fetch(`${fetchURL}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(global),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
-  };
+  // const updateObject = () => {
+  //   fetch(`${fetchURL}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify(global),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .catch((error) => console.log(error));
+  // };
 
   return (
     <div className="container-fluid">

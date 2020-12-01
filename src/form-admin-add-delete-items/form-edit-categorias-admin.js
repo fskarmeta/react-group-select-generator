@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { SetCategory } from "./component-formulario/set-category";
 import { SetItem } from "./component-formulario/set-item";
 import { DeleteCategory } from "./component-formulario/delete-category";
